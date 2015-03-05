@@ -42,7 +42,7 @@ int main()
         b[i] = a[i];
     }
     k = i;
-    while (k<= 1972)
+    while (k<= 1971)
     {
        for(i=0; i<=27; i++)
        {
