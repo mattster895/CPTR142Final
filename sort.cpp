@@ -26,7 +26,7 @@ int main()
     ifstream fin;
     string saveLocation = "marbles.txt";
     int size = 0;
-    char a[2000];
+    char a[1999];
 
     fin.open(saveLocation.c_str());
     if(!fin)
@@ -36,7 +36,6 @@ int main()
         system("PAUSE");
         exit(0);
     }
-    fin.ignore(1); //ignores the first endl
     while(!fin.eof())
     {
         fin >> a[size];
@@ -53,7 +52,12 @@ int main()
         temp1++;
     }
 
-    while(temp1!=2000)
+    if(a[temp2]=='R')
+    {
+        temp2=temp1;
+    }
+
+    while(temp1!=1999)
     {
         if(a[temp1]=='R')
         {
@@ -71,12 +75,17 @@ int main()
     temp1=0;
     temp2=0;
 
-    while(a[temp2]=='R')
+    while((a[temp2]=='R')||(a[temp2]=='W'))
     {
         temp2++;
     }
 
-    while(temp1!=2000)
+    while((a[temp1]=='R')||(a[temp1]=='W'))
+    {
+        temp1=temp2;
+    }
+
+    while(temp1!=1999)
     {
         if(a[temp1]=='W')
         {
@@ -92,11 +101,11 @@ int main()
     }
 
     cout << a;
+    cout << '\b' << '\b';
 
     t1 = rdtsc();
     delta = t1-t0;
-    cout << " Clock Cycles: " << delta;
+    cout << "Clock Cycles: " << delta;
 
     return 0;
 }
-
