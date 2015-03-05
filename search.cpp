@@ -28,7 +28,6 @@ int main()
         system("PAUSE");
         exit(0);
     }
-    fin.ignore(0); //ignores the first endl
     while(!fin.eof())
     {
         fin >> a[size];
