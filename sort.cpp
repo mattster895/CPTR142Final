@@ -61,12 +61,17 @@ int main()
     {
         if(a[temp1]=='R')
         {
-            holder = a[temp2];
-            a[temp2] = 'R';
-            a[temp1] = holder;
+            swap(a[temp1],a[temp2]);
             temp2++;
+            while(a[temp1]=='R')
+            {
+                temp1++;
+                swap(a[temp1],a[temp2]);
+                temp2++;
+            }
+
         }
-        else
+        else if(a[temp1]!='R')
         {
             temp1++;
         }
@@ -89,9 +94,8 @@ int main()
     {
         if(a[temp1]=='W')
         {
-            holder = a[temp2];
-            a[temp2] = 'W';
-            a[temp1] = holder;
+            swap(a[temp1],a[temp2]);
+
             temp2++;
         }
         else
