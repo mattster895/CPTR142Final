@@ -34,8 +34,6 @@ int main()
         size++;
     }
     fin.close();
-    for (i = 0; i<=2027; i++)
-        cout << a[i];
     for (i =0; i<=27; i++)
     {
 
@@ -61,13 +59,14 @@ int main()
     }
        for(i=0; i<= 70; i++)
        {
-        if(c[i] == 0)
-       {
+         if(c[i] == 0)
+        {
            i==71;
-       }
-       else
-       {
-           cout << "\n pattern found at position: " << c[i];
-       }
+        }
+         else
+        {
+           cout << "Pattern found at position: " << c[i] << endl;
+        }
        }
 }
+
