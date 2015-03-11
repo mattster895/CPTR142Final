@@ -11,24 +11,14 @@ int main()
     clock_t t1, t2;
 
     ifstream fin;
-    string saveLocation = "charbits.txt";
-    int i=0;
-    int k;
-    int size = 0;
-    int c[71];
-    int d[71];
-    int z=0;
-    int y=0; //i is an all purpose counter variable, k is used for tracking solutions, size prevents overflow, c stores solutions, z and y do something
-    char a[2028], b[28];
-    for(y=0; y<=70; y++)
-    {
-        c[y] = 0;
-    }
-    for(y=0; y<=70; y++)
-    {
-        d[y] = 0;
-    }
-    fin.open(saveLocation.c_str()); //opens the file and displays an error message if unable to do so
+    string saveLocation = "marbles.txt";
+    string saveLocation1 = "marbles1.txt";
+    int size1 = 0;
+    int size2 = 0;
+    char a[1999], z[1999];
+    char temppoint;
+
+    fin.open(saveLocation.c_str());
     if(!fin)
     {
         cout << "Failure trying to read file: ";
@@ -38,56 +28,97 @@ int main()
     }
     while(!fin.eof())
     {
-        fin >> a[size];
-        size++;
+        fin >> a[size2];
+        size2++;
     }
     fin.close();
 
-    t1=clock();
 
-    for(long int q=1; q<=1000000; q++)
+    fin.open(saveLocation1.c_str());
+    if(!fin)
     {
-        for (i =0; i<=27; i++)
+        cout << "Failure trying to read file: ";
+        cout << saveLocation1.c_str() << endl;
+        system("PAUSE");
+        exit(0);
+    }
+    while(!fin.eof())
+    {
+        fin >> z[size1];
+        size1++;
+    }
+    fin.close();
+
+    cout << a;
+    cout << endl << endl;
+    cout << z;
+    cout << endl << endl;
+    int temp1=0;
+    int temp2=0;
+
+    t1 = clock();
+
+    for(long int i=1; i<=1000000; i++)
+    {
+        if(a[temp1]=='R')
         {
-            b[i] = a[i];
+            temp1++;
         }
-        k = 27;
-        while (k<=1971)
+
+        if(a[temp2]=='R')
         {
-            for(i=0; i<=27; i++)
+            temp2=temp1;
+        }
+
+        while(temp1!=1999)
+        {
+            if(a[temp1]=='R')
             {
-                if(b[i] != a[k+i])
-                {
-                    i=28;
-                    k++;
-                }
-                else if(i==27)
-                {
-                    c[z] = k;
-                    z++;
-                    k = k + 28;
-                }
+                swap(a[temp1],a[temp2]);
+                temp2++;
+                temp1++;
+            }
+            else
+            {
+                temp1++;
+            }
+        }
+
+        temp1=0;
+        temp2=0;
+
+        while((a[temp2]=='R')||(a[temp2]=='W'))
+        {
+            temp2++;
+        }
+
+        while((a[temp1]=='R')||(a[temp1]=='W'))
+        {
+            temp1=temp2;
+        }
+
+        while(temp1!=1999)
+        {
+            if(a[temp1]=='W')
+            {
+                swap(a[temp1],a[temp2]);
+                temp2++;
+                temp1++;
+            }
+            else
+            {
+                temp1++;
             }
         }
     }
 
-    int end=1;
-    while(c[end]!=c[0])
-    {
-        end++;
-    }
+    cout << a;
+    cout << '\b' << '\b';
 
-    end = end-1;
+    t2 = clock();
 
-    for(i=0; i<=end; i++)
-    {
-        cout << "Pattern found at position: " << c[i];
-        cout << endl;
-    }
-
-    t2=clock();
-
-    cout << "\nTime difference is " << (t2-t1)/CLK_TCK << " microseconds.";
+    cout << "Time difference is " << (t2-t1)/CLK_TCK << " microseconds.";
 
     return 0;
 }
+
