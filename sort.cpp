@@ -2,33 +2,33 @@
 #include <fstream>
 #include <cstdlib>
 #include <string>
-#include <stdint.h>
+#include <ctime>
 
 using namespace std;
 
-extern "C"
-{
-	__inline__ uint64_t rdtsc()
-	{
-		uint32_t lo, hi;
-		/* We cannot use "=A", since this would use %rax on x86_64 */
-		__asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
-
-		return (uint64_t)hi << 32 | lo;
-	}
-}
-
 int main()
 {
-    uint64_t t0, t1, delta;
-    t0 = rdtsc();
+    clock_t t1, t2;
 
     ifstream fin;
-    string saveLocation = "marbles.txt";
+    string saveLocation = "charbits.txt";
+    int i=0;
+    int k;
     int size = 0;
-    char a[1999];
-
-    fin.open(saveLocation.c_str());
+    int c[71];
+    int d[71];
+    int z=0;
+    int y=0; //i is an all purpose counter variable, k is used for tracking solutions, size prevents overflow, c stores solutions, z and y do something
+    char a[2028], b[28];
+    for(y=0; y<=70; y++)
+    {
+        c[y] = 0;
+    }
+    for(y=0; y<=70; y++)
+    {
+        d[y] = 0;
+    }
+    fin.open(saveLocation.c_str()); //opens the file and displays an error message if unable to do so
     if(!fin)
     {
         cout << "Failure trying to read file: ";
@@ -43,73 +43,51 @@ int main()
     }
     fin.close();
 
-    int temp1=0;
-    int temp2=0;
-    char holder;
+    t1=clock();
 
-    if(a[temp1]=='R')
+    for(long int q=1; q<=1000000; q++)
     {
-        temp1++;
-    }
-
-    if(a[temp2]=='R')
-    {
-        temp2=temp1;
-    }
-
-    while(temp1!=1999)
-    {
-        if(a[temp1]=='R')
+        for (i =0; i<=27; i++)
         {
-            swap(a[temp1],a[temp2]);
-            temp2++;
-            while(a[temp1]=='R')
+            b[i] = a[i];
+        }
+        k = 27;
+        while (k<=1971)
+        {
+            for(i=0; i<=27; i++)
             {
-                temp1++;
-                swap(a[temp1],a[temp2]);
-                temp2++;
+                if(b[i] != a[k+i])
+                {
+                    i=28;
+                    k++;
+                }
+                else if(i==27)
+                {
+                    c[z] = k;
+                    z++;
+                    k = k + 28;
+                }
             }
-
-        }
-        else if(a[temp1]!='R')
-        {
-            temp1++;
         }
     }
 
-    temp1=0;
-    temp2=0;
-
-    while((a[temp2]=='R')||(a[temp2]=='W'))
+    int end=1;
+    while(c[end]!=c[0])
     {
-        temp2++;
+        end++;
     }
 
-    while((a[temp1]=='R')||(a[temp1]=='W'))
+    end = end-1;
+
+    for(i=0; i<=end; i++)
     {
-        temp1=temp2;
+        cout << "Pattern found at position: " << c[i];
+        cout << endl;
     }
 
-    while(temp1!=1999)
-    {
-        if(a[temp1]=='W')
-        {
-            swap(a[temp1],a[temp2]);
+    t2=clock();
 
-            temp2++;
-        }
-        else
-        {
-            temp1++;
-        }
-    }
-
-    cout << a;
-    cout << '\b' << '\b';
-
-    t1 = rdtsc();
-    delta = t1-t0;
-    cout << "Clock Cycles: " << delta;
+    cout << "\nTime difference is " << (t2-t1)/CLK_TCK << " microseconds.";
 
     return 0;
 }
