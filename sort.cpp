@@ -25,15 +25,16 @@ int main()
 {
     //input and initializations start
 
-    clock_t t1,t2;
-    int time;
+    clock_t t1,t2,t3,t4;
+    int time1 = 0;
+    int time2 = 0;
+    int time3 = 0;
 
     ifstream fin;
     string saveLocation = "marbles.txt";
     int size = 0;
     char a[1999];
     char b[1999];
-    char alpha;
 
     fin.open(saveLocation.c_str());
     if(!fin)
@@ -133,9 +134,27 @@ int main()
         cout << a[z];
     }
 
-    time = (t2-t1)/CLK_TCK;
+    t3 = clock();
 
-    cout << "Time difference is "<< time << " microseconds.";
+    for(long int i=1;i<=1000000;i++)
+    {
+        for(int z=0;z<=1999;z++)
+        {
+            a[z] = b[z];
+        }
+    }
+
+    t4 = clock();
+    time2 = time2 + (double)(t4-t3);
+
+    time1 = (t2-t1)/CLK_TCK;
+    time2 = time2/CLK_TCK;
+    time3 = time1 - time2;
+
+    cout << "\n  Total time: " << time1 << " microseconds.";
+    cout << "\n  Reset time: " << time2 << " microseconds.";
+    cout << "\n Actual time: " << time3 << " microseconds.";
+    cout << endl;
 
     return 0;
 }
