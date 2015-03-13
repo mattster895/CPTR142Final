@@ -136,7 +136,7 @@ for(int i=1; i<=100000; i++)
 
     for (int y=0; y<=1999; y++)
         cout << a[y];
-    cout << '\b' << '\b';
+    //cout << '\b' << '\b';
 
 cout << "Total time used is " << time << endl;
 cout << "Outside of loop reset time is " << stopwatch << endl;
