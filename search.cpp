@@ -38,7 +38,7 @@ int q=0;// Q likewise, is a counter variable used in various situations
 int y=0;//Y likewise, is a counter variable used in various situations
 int size = 0; //Size is a counter variable used during file in
 
-char a[2028] //A is the array holding the charbits data
+char a[2028]; //A is the array holding the charbits data
 int b[28]; //B is an array holding the search key
 int c[71]; //C is an array holding the start positions of matches
 
